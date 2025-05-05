@@ -1,0 +1,70 @@
+Torchship game
+
+Chess/into the breach/xcom
+Pixel graphics
+
+Story: you ARE the religious jihadists. You received a vision you and your people were chosen to spread your religion across the galaxy. Destroy AIs, heathens, and heretics
+-little popups like in into the breach, ships dying proclaim glory to god, plane
+
+Classes/objs
+
+Map:
+-2d array of spaces
+
+Space:
+-terrain (asteroids (33% chance to take damage on enter, -10% enemy accuracy), planet (halves movement on exit, surprise event), black hole(moving into destroys)
+-coordinate (x and y coordinate on map)
+-structure (starport(replenish health but give up turn), starbase(give up turn to capture, fires at enemies), cities (on planet, can be captured if you bombard, give loot))
+-unit occupying (ship on space)
+
+Pilot:
+-personality (for AI, aggressive will move toward player and attack, cautious will stay at firing distance and move out of range when weak, trickster will choose between the two. For player gives skill bonus aggro is 
+-skills (bonuses)
+-ability (special moves)
+
+Ship:
+-pilot (Pilot)
+-team (Player or AI)
+-hp
+-shields
+-weapons (array of weapon)
+-engine (speed
+-effect (from terrain, or from weapon type)
+
+Engine:
+-move type (jump vs line)
+-distance
+
+Weapon:
+-damage type (jump vs line)
+-area of effect
+-range
+-damage amount
+-knockback or attract
+-accuracy (percent chance to hit, increases closer enemy is)
+
+AI:
+-personality
+
+Gamestate:
+-Map
+-Ships
+-AI
+
+Gameplayer:
+-tracks turns
+>player turn moves all ships and attacks
+>AI turn ai moves units and attacks
+-game ends once all AI ships gone or allPlayer ships gone or when all planets captured
+
+
+Plan:
+-make barebones game logic 3 ship types
+-add graphics and music and sounds
+-add campaign, upgrades, more ship types, unlockables
+~map screen (select mission, edit fleet, store)
+~battle screen
+~edit fleet screen
+~store screen
+
+-PVP mode
