@@ -33,14 +33,19 @@ def generateSpace(coords):
  return Space(terrain, structure, coordinate, occupier)
 
 def generateShips(map, playerfleet, aifleet):
-
+ for i in range(len(playerfleet)):
+  #get bottom left of map, (12-1)*12 = 132, or rows * cols - cols = 12 * 12 - 12 = 144 - 12 = 132 
+  map[rows*cols - cols + i].occupier = playerfleet[i]
+ for i in range(len(aifleet)):
+  map[cols-1-i].occupier = aifleet[i]
 
 class Map:
  #add ship array argument so gameplayer and tell what ships to add
- def __init__(self):
+ def __init__(self, playerfleet, aifleet):
   # create array of spaces
   self.map = []
   for c in range(cols):
    for r in range(rows):
     coords = [c, r]
     self.map.append(generateSpace(coords))
+  generateShips(self.map, playerfleet, aifleet)

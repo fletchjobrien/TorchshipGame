@@ -68,3 +68,4 @@ Plan:
 ~store screen
 
 -PVP mode
+-add star?

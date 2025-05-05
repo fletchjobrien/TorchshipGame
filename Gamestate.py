@@ -5,9 +5,9 @@ from Ship import Ship
 class Gamestate:
  def __init__(self, map, playerfleet, aifleet, ai):
   if map == "Random":
-   self.map = Map()
+   self.map = Map(playerfleet, aifleet)
   else:
-   self.map = Map()
+   self.map = Map(playerfleet, aifleet)
 
   self.playerfleet = playerfleet
   self.aifleet = aifleet
@@ -16,7 +16,10 @@ class Gamestate:
  def printMap(self):
   row = ""
   for i in self.map.map:
-   if i.terrain == "Asteroid":
+   if i.occupier != "Empty":
+    row += " S "
+
+   elif i.terrain == "Asteroid":
     row += " A "
    elif i.terrain == "Planet":
     row+= " P "
@@ -24,6 +27,7 @@ class Gamestate:
     row+= " B "
    else:
     row += " E "
+
    if len(row) >= 36:
     print(row)
     row = ""
