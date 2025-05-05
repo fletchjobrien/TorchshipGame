@@ -18,4 +18,4 @@ playerfleet = [Ship("Test","Test",12,12,["Test","Test"],"Test","Test")]
 aifleet = [Ship("Test","Test",12,12,["Test","Test"],"Test","Test")]
 game = Gameplayer(0, "Main Menu", Gamestate(Map, playerfleet, aifleet, "TestAI"))
 
-game.gamestate.printMap()
+game.gamestate.printMap(playerfleet, aifleet)

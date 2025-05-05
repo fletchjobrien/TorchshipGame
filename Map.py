@@ -1,6 +1,7 @@
 #map class
 import random
 from Space import Space
+from Ship import Ship
 
 rows, cols = 12, 12
 
@@ -31,7 +32,11 @@ def generateSpace(coords):
 
  return Space(terrain, structure, coordinate, occupier)
 
+def generateShips(map, playerfleet, aifleet):
+
+
 class Map:
+ #add ship array argument so gameplayer and tell what ships to add
  def __init__(self):
   # create array of spaces
   self.map = []
