@@ -1,21 +1,29 @@
 # Gamestate tracking obj
 from Map import Map
+from Ship import Ship
 
-gamemap = Map()
-
-def printMap():
- row = ""
- for i in gamemap.map:
-  if i.terrain == "Asteroid":
-   row += " A "
-  elif i.terrain == "Planet":
-   row+= " P "
-  elif i.terrain == "Black Hole":
-   row+= " B "
+class Gamestate:
+ def __init__(self, map, playerfleet, aifleet, ai):
+  if map == "Random":
+   self.map = Map()
   else:
-   row += " E "
-  if len(row) >= 36:
-   print(row)
-   row = ""
+   self.map = Map()
 
-printMap()
+  self.playerfleet = playerfleet
+  self.aifleet = aifleet
+  self.ai = ai
+
+ def printMap(self):
+  row = ""
+  for i in self.map.map:
+   if i.terrain == "Asteroid":
+    row += " A "
+   elif i.terrain == "Planet":
+    row+= " P "
+   elif i.terrain == "Black Hole":
+    row+= " B "
+   else:
+    row += " E "
+   if len(row) >= 36:
+    print(row)
+    row = ""
