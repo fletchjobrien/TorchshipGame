@@ -12,6 +12,7 @@ class Gameplayer:
   self.aifleet = []
   self.gameend = 0
   self.selectedship = Ship("Test","Test",12,12,["Test","Test"],"Test","Test")
+  self.selectedshipspace = [12,12]
 
   while self.gameend == 0:
    #menu
@@ -38,13 +39,22 @@ class Gameplayer:
      if (selectedspace.occupier == "Empty"):
       print(f"No ship in selected coords {x} {y}")
       print(f"Checking map at index {index}, finding that terrain is " + selectedspace.terrain)
-     elif (selectedspace.occupier == "Player"):
+     elif (selectedspace.occupier.team == "Player"):
       print("Ship selected")
+      self.selectedshipspace[0] = x
+      self.selectedshipspace[1] = y
       self.selectedship = selectedspace.occupier
     #move
     if choice == "m":
      user_input = input("Select Coords to Move to(X Y): ")
      x, y = map(int, user_input.split())
+     #check if on the map and in range for ship's engine
+     if (x < 12 and x >=0 and y < 12 and y >=0):
+      gamestate.map.map[(12*y)+x].occupier = self.selectedship
+      print(f"{12*self.selectedshipspace[1]} plus {self.selectedshipspace[0]}")
+      gamestate.map.map[(12*self.selectedshipspace[1])+self.selectedshipspace[0]].occupier = "Empty"
+      self.selectedshipspace[0] = x
+      self.selectedshipspace[1] = y
     #attack
     if choice == "a":
      for i in range(len(self.selectedship.weapons)):
@@ -61,8 +71,8 @@ class Gameplayer:
     print("Game over. Goodbye.")
     self.gameend = 1
 
-playerfleet = [Ship("Test","Player",12,12,["Test","Test"],"Test","Test")]
-aifleet = [Ship("Test","Test",12,12,["Test","Test"],"Test","Test")]
+playerfleet = [Ship("Test","Player",12,12,["Test","Test"],"Test","Test"), Ship("Test","Player",12,12,["Test","Test"],"Test","Test")]
+aifleet = [Ship("Test","Enemy",12,12,["Test","Test"],"Test","Test"), Ship("Test","Enemy",12,12,["Test","Test"],"Test","Test")]
 game = Gameplayer(0, "Menu", Gamestate(Map, playerfleet, aifleet, "TestAI"))
 
 #game.gamestate.printMap()
