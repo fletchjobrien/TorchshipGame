@@ -17,7 +17,10 @@ class Gamestate:
   row = ""
   for i in self.map.map:
    if i.occupier != "Empty":
-    row += " S "
+    if i.occupier.hp <= 0:
+     i.occupier = "Empty"
+    else:
+     row += " S "
 
    elif i.terrain == "Asteroid":
     row += " A "

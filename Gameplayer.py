@@ -2,6 +2,7 @@
 from Gamestate import Gamestate
 from Ship import Ship
 from Map import Map
+import random
 
 class Gameplayer:
  def __init__(self, turnnum, turntype, gamestate):
@@ -59,9 +60,21 @@ class Gameplayer:
     #attack
     if choice == "a":
      for i in range(len(self.selectedship.weapons)):
-      print(f"{i} - " + self.selectedship.weapons[i])
+      print(f"{i} - " + self.selectedship.weapons[i].name)
      user_input = input("Select Weapon: ")
-     choice = user_input.lower()
+     choice = int(user_input)
+     if choice < len(self.selectedship.weapons):
+      user_input = input("Select Coords to Attack(X Y): ")
+      x, y = map(int, user_input.split())
+      if (abs(x-self.selectedshipspace[0])+abs(y-self.selectedshipspace[1])<=self.selectedship.weapons[choice].range):
+       print("Space in range of weapon, firing!")
+       if (random.random() < self.selectedship.weapons[choice].accuracy):
+        print("Successful hit!")
+        gamestate.map.map[(12*y)+x].occupier.hp -= self.selectedship.weapons[choice].dmg
+       else:
+        print("Missed! Damn!")
+      else:
+       print("Not in range.")
     #enemyturn
     if choice == "e":
      self.turntype = "Enemy Turn"
@@ -72,7 +85,7 @@ class Gameplayer:
     print("Game over. Goodbye.")
     self.gameend = 1
 
-playerfleet = [Ship("Test","Player",12,12,["Test","Test"],"Small Jump","Test"), Ship("Test","Player",12,12,["Test","Test"],"Small Line","Test")]
+playerfleet = [Ship("Test","Player",12,12,["Small Gun","Test"],"Small Jump","Test"), Ship("Test","Player",12,12,["Test","Test"],"Small Line","Test")]
 aifleet = [Ship("Test","Enemy",12,12,["Test","Test"],"Test","Test"), Ship("Test","Enemy",12,12,["Test","Test"],"Test","Test")]
 game = Gameplayer(0, "Menu", Gamestate(Map, playerfleet, aifleet, "TestAI"))
 

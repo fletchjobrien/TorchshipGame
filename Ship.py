@@ -9,7 +9,10 @@ class Ship:
   self.team = team
   self.hp = hp
   self.shield = shield
-  self.weapons = weapons
+  self.weapons = []
+  for wep in weapons:
+   if wep == "Small Gun":
+    self.weapons.append(Weapon("Small Gun",0,20,20,0,0.6))
   if engine == "Small Jump":
    self.engine = Engine("Small Jump", 3)
   else:
