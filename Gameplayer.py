@@ -50,11 +50,12 @@ class Gameplayer:
      x, y = map(int, user_input.split())
      #check if on the map and in range for ship's engine
      if (x < 12 and x >=0 and y < 12 and y >=0):
-      gamestate.map.map[(12*y)+x].occupier = self.selectedship
-      print(f"{12*self.selectedshipspace[1]} plus {self.selectedshipspace[0]}")
-      gamestate.map.map[(12*self.selectedshipspace[1])+self.selectedshipspace[0]].occupier = "Empty"
-      self.selectedshipspace[0] = x
-      self.selectedshipspace[1] = y
+      if (abs(x-self.selectedshipspace[0])+abs(y-self.selectedshipspace[1])<=self.selectedship.engine.distance):
+       gamestate.map.map[(12*y)+x].occupier = self.selectedship
+       print(f"{12*self.selectedshipspace[1]} plus {self.selectedshipspace[0]}")
+       gamestate.map.map[(12*self.selectedshipspace[1])+self.selectedshipspace[0]].occupier = "Empty"
+       self.selectedshipspace[0] = x
+       self.selectedshipspace[1] = y
     #attack
     if choice == "a":
      for i in range(len(self.selectedship.weapons)):
@@ -71,7 +72,7 @@ class Gameplayer:
     print("Game over. Goodbye.")
     self.gameend = 1
 
-playerfleet = [Ship("Test","Player",12,12,["Test","Test"],"Test","Test"), Ship("Test","Player",12,12,["Test","Test"],"Test","Test")]
+playerfleet = [Ship("Test","Player",12,12,["Test","Test"],"Small Jump","Test"), Ship("Test","Player",12,12,["Test","Test"],"Small Line","Test")]
 aifleet = [Ship("Test","Enemy",12,12,["Test","Test"],"Test","Test"), Ship("Test","Enemy",12,12,["Test","Test"],"Test","Test")]
 game = Gameplayer(0, "Menu", Gamestate(Map, playerfleet, aifleet, "TestAI"))
 

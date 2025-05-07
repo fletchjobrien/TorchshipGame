@@ -10,5 +10,9 @@ class Ship:
   self.hp = hp
   self.shield = shield
   self.weapons = weapons
-  self.engine = engine
+  if engine == "Small Jump":
+   self.engine = Engine("Small Jump", 3)
+  else:
+   self.engine = Engine("Small Line", 4)
   self.effect = effect
+
