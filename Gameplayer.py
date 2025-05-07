@@ -33,6 +33,14 @@ class Gameplayer:
     if choice == "s":
      user_input = input("Select Coords of Ship(X Y): ")
      x, y = map(int, user_input.split())
+     index = (12*y)+x
+     selectedspace = gamestate.map.map[(12*y)+x]
+     if (selectedspace.occupier == "Empty"):
+      print(f"No ship in selected coords {x} {y}")
+      print(f"Checking map at index {index}, finding that terrain is " + selectedspace.terrain)
+     elif (selectedspace.occupier == "Player"):
+      print("Ship selected")
+      self.selectedship = selectedspace.occupier
     #move
     if choice == "m":
      user_input = input("Select Coords to Move to(X Y): ")
@@ -43,17 +51,17 @@ class Gameplayer:
       print(f"{i} - " + self.selectedship.weapons[i])
      user_input = input("Select Weapon: ")
      choice = user_input.lower()
+    #enemyturn
     if choice == "e":
      self.turntype = "Enemy Turn"
     if choice == "r":
      self.turntype = "Menu"
-   #enemyturn
    #gameendscreen
    elif self.turntype == "End Game":
     print("Game over. Goodbye.")
     self.gameend = 1
 
-playerfleet = [Ship("Test","Test",12,12,["Test","Test"],"Test","Test")]
+playerfleet = [Ship("Test","Player",12,12,["Test","Test"],"Test","Test")]
 aifleet = [Ship("Test","Test",12,12,["Test","Test"],"Test","Test")]
 game = Gameplayer(0, "Menu", Gamestate(Map, playerfleet, aifleet, "TestAI"))
 
