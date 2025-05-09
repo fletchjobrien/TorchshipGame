@@ -20,4 +20,6 @@ class Ship:
   else:
    self.engine = Engine("Small Line", 4)
   self.effect = effect
+  self.hasmoved = 0
+  self.hasattacked = 0
 
