@@ -13,6 +13,8 @@ class Ship:
   for wep in weapons:
    if wep == "Test":
     self.weapons.append(Weapon("Test",0,20,20,0,0.9))
+   if wep == "Nuclear Missile":
+    self.weapons.append(Weapon("Nuclear Missile",2,6,8,0,0.8))
   if engine == "Small Jump":
    self.engine = Engine("Small Jump", 3)
   else:

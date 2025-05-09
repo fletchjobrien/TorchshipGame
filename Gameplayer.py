@@ -4,6 +4,8 @@ from Ship import Ship
 from Map import Map
 import random
 
+
+
 class Gameplayer:
  def __init__(self, turnnum, turntype, gamestate):
   self.turnnum = turnnum
@@ -80,8 +82,21 @@ class Gameplayer:
         bonus = self.selectedship.weapons[choice].accuracy/2;
         print(f"Space is in close range, accuracy bonus! Chance to hit: {self.selectedship.weapons[choice].accuracy+bonus}")
        if (random.random() < self.selectedship.weapons[choice].accuracy + bonus):
-        gamestate.map.map[(12*y)+x].occupier.hp -= self.selectedship.weapons[choice].dmg
-        print(f"Successful hit! Your ship hp: {self.selectedship.hp} His ship hp: {gamestate.map.map[(12*y)+x].occupier.hp}")
+        #check if aoe attack
+        if (self.selectedship.weapons[choice].aoe > 0):
+         aoe = self.selectedship.weapons[choice].aoe
+         aoe_squared = aoe*aoe
+         for dx in range(-aoe, aoe + 1):
+          for dy in range(-aoe, aoe + 1):
+           if dx*dx + dy*dy <= aoe_squared:
+            nx, ny = x + dx, y + dy
+            if 0 <= nx < 12 and 0 <= ny < 12:
+             if gamestate.map.map[(12*ny)+nx].occupier != "Empty":
+              gamestate.map.map[(12*ny)+nx].occupier.hp -= self.selectedship.weapons[choice].dmg
+              print(f"Successful hit! Your ship hp: {self.selectedship.hp} His ship hp: {gamestate.map.map[(12*y)+x].occupier.hp}")
+        else:
+         gamestate.map.map[(12*y)+x].occupier.hp -= self.selectedship.weapons[choice].dmg
+         print(f"Successful hit! Your ship hp: {self.selectedship.hp} His ship hp: {gamestate.map.map[(12*y)+x].occupier.hp}")
        else:
         print("Missed! Damn!")
       else:
@@ -96,7 +111,7 @@ class Gameplayer:
     print("Game over. Goodbye.")
     self.gameend = 1
 
-playerfleet = [Ship("Test","Player",12,12,["Small Gun","Test"],"Small Jump","Test"), Ship("Test","Player",12,12,["Test","Test"],"Small Line","Test"), Ship("Test","Player",12,12,["Small Gun","Test"],"Small Jump","Test")]
+playerfleet = [Ship("Test","Player",12,12,["Small Gun","Test"],"Small Jump","Test"), Ship("Test","Player",12,12,["Nuclear Missile","Test"],"Small Line","Test"), Ship("Test","Player",12,12,["Small Gun","Test"],"Small Jump","Test")]
 aifleet = [Ship("Test","Enemy",12,12,["Test","Test"],"Test","Test"), Ship("Test","Enemy",12,12,["Test","Test"],"Test","Test")]
 game = Gameplayer(0, "Menu", Gamestate("Random", playerfleet, aifleet, "TestAI"))
 
