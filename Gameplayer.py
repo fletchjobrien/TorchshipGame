@@ -74,8 +74,12 @@ class Gameplayer:
       user_input = input("Select Coords to Attack(X Y): ")
       x, y = map(int, user_input.split())
       if (abs(x-self.selectedshipspace[0])+abs(y-self.selectedshipspace[1])<=self.selectedship.weapons[choice].range):
-       print("Space in range of weapon, firing!")
-       if (random.random() < self.selectedship.weapons[choice].accuracy):
+       print(f"Space in range of weapon, firing! Chance to hit: {self.selectedship.weapons[choice].accuracy*100}%")
+       bonus = 0;
+       if (abs(x-self.selectedshipspace[0])+abs(y-self.selectedshipspace[1])<=self.selectedship.weapons[choice].range/2):
+        bonus = self.selectedship.weapons[choice].accuracy/2;
+        print(f"Space is in close range, accuracy bonus! Chance to hit: {self.selectedship.weapons[choice].accuracy+bonus}")
+       if (random.random() < self.selectedship.weapons[choice].accuracy + bonus):
         gamestate.map.map[(12*y)+x].occupier.hp -= self.selectedship.weapons[choice].dmg
         print(f"Successful hit! Your ship hp: {self.selectedship.hp} His ship hp: {gamestate.map.map[(12*y)+x].occupier.hp}")
        else:
