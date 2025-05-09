@@ -69,8 +69,8 @@ class Gameplayer:
       if (abs(x-self.selectedshipspace[0])+abs(y-self.selectedshipspace[1])<=self.selectedship.weapons[choice].range):
        print("Space in range of weapon, firing!")
        if (random.random() < self.selectedship.weapons[choice].accuracy):
-        print("Successful hit!")
         gamestate.map.map[(12*y)+x].occupier.hp -= self.selectedship.weapons[choice].dmg
+        print(f"Successful hit! Your ship hp: {self.selectedship.hp} His ship hp: {gamestate.map.map[(12*y)+x].occupier.hp}")
        else:
         print("Missed! Damn!")
       else:
@@ -85,9 +85,9 @@ class Gameplayer:
     print("Game over. Goodbye.")
     self.gameend = 1
 
-playerfleet = [Ship("Test","Player",12,12,["Small Gun","Test"],"Small Jump","Test"), Ship("Test","Player",12,12,["Test","Test"],"Small Line","Test")]
+playerfleet = [Ship("Test","Player",12,12,["Small Gun","Test"],"Small Jump","Test"), Ship("Test","Player",12,12,["Test","Test"],"Small Line","Test"), Ship("Test","Player",12,12,["Small Gun","Test"],"Small Jump","Test")]
 aifleet = [Ship("Test","Enemy",12,12,["Test","Test"],"Test","Test"), Ship("Test","Enemy",12,12,["Test","Test"],"Test","Test")]
-game = Gameplayer(0, "Menu", Gamestate(Map, playerfleet, aifleet, "TestAI"))
+game = Gameplayer(0, "Menu", Gamestate("Random", playerfleet, aifleet, "TestAI"))
 
 #game.gamestate.printMap()
 

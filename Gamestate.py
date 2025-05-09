@@ -16,7 +16,7 @@ class Gamestate:
  def printMap(self):
   row = ""
   for i in self.map.map:
-   if i.occupier != "Empty":
+   if isinstance(i.occupier, Ship):
     if i.occupier.hp <= 0:
      i.occupier = "Empty"
     else:

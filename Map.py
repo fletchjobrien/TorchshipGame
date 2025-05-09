@@ -34,7 +34,7 @@ def generateSpace(coords):
 
 def generateShips(map, playerfleet, aifleet):
  for i in range(len(playerfleet)):
-  #get bottom left of map, (12-1)*12 = 132, or rows * cols - cols = 12 * 12 - 12 = 144 - 12 = 132 
+  #get bottom left of map, (12-1)*12 = 132, or rows * cols - cols = 12 * 12 - 12 = 144 - 12 = 132
   map[rows*cols - cols + i].occupier = playerfleet[i]
  for i in range(len(aifleet)):
   map[cols-1-i].occupier = aifleet[i]
