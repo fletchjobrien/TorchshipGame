@@ -49,14 +49,21 @@ class Gameplayer:
     if choice == "m":
      user_input = input("Select Coords to Move to(X Y): ")
      x, y = map(int, user_input.split())
-     #check if on the map and in range for ship's engine
+     #check if on the map and in range for ship's engine and chosen space not occupied
      if (x < 12 and x >=0 and y < 12 and y >=0):
       if (abs(x-self.selectedshipspace[0])+abs(y-self.selectedshipspace[1])<=self.selectedship.engine.distance):
-       gamestate.map.map[(12*y)+x].occupier = self.selectedship
-       print(f"{12*self.selectedshipspace[1]} plus {self.selectedshipspace[0]}")
-       gamestate.map.map[(12*self.selectedshipspace[1])+self.selectedshipspace[0]].occupier = "Empty"
-       self.selectedshipspace[0] = x
-       self.selectedshipspace[1] = y
+       if (gamestate.map.map[(12*y)+x].occupier == "Empty"):
+        gamestate.map.map[(12*y)+x].occupier = self.selectedship
+        print(f"{12*self.selectedshipspace[1]} plus {self.selectedshipspace[0]}")
+        gamestate.map.map[(12*self.selectedshipspace[1])+self.selectedshipspace[0]].occupier = "Empty"
+        self.selectedshipspace[0] = x
+        self.selectedshipspace[1] = y
+       else:
+        print("Space occupied by another ship.")
+      else:
+       print("Out of range for ship's engine.")
+     else:
+      print("Out of bounds for map.")
     #attack
     if choice == "a":
      for i in range(len(self.selectedship.weapons)):

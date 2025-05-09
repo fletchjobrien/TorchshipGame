@@ -19,9 +19,9 @@ class Gamestate:
    if isinstance(i.occupier, Ship):
     if i.occupier.hp <= 0:
      i.occupier = "Empty"
-    else:
-     row += " S "
 
+   if i.occupier != "Empty":
+    row += " S "
    elif i.terrain == "Asteroid":
     row += " A "
    elif i.terrain == "Planet":
