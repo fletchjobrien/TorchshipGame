@@ -138,7 +138,7 @@ class Gameplayer:
            closestplayership = z.coordinate
            print(f"Closest player ship set to {z.coordinate[0]}, {z.coordinate[1]}")
        # move toward closest player ship
-       spacetomove = selectedenemyshipspace
+       spacetomove = selectedenemyshipspace.copy()
        print(f"Moving ship at {selectedenemyshipspace[0]}, {selectedenemyshipspace[1]} toward ship at {closestplayership[0]}, {closestplayership[1]}")
        for q in range(selectedenemyship.engine.distance):
         if closestplayership[0] > spacetomove[0]:
@@ -159,7 +159,7 @@ class Gameplayer:
     self.gameend = 1
 
 playerfleet = [Ship("Test","Player",12,12,["Small Gun","Test"],"Small Jump","Test"), Ship("Test","Player",12,12,["Nuclear Missile","Test"],"Small Line","Test"), Ship("Test","Player",12,12,["Small Gun","Test"],"Small Jump","Test")]
-aifleet = [Ship("Simple","Enemy",12,12,["Test","Test"],"Test","Test"), Ship("Simple","Enemy",12,12,["Test","Test"],"Test","Test")]
+aifleet = [Ship("Simple","Enemy",12,12,["Test","Test"],"Small Jump","Test"), Ship("Simple","Enemy",12,12,["Test","Test"],"Small Jump","Test")]
 game = Gameplayer(0, "Menu", Gamestate("Random", playerfleet, aifleet, "TestAI"))
 
 #game.gamestate.printMap()
