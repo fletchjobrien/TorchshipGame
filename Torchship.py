@@ -50,6 +50,8 @@ tile_index = (tile_coord[1]*map_size)+tile_coord[0]
 
 #sets indexes to what they would be in the array
 def set_indices():
+ global ship_index
+ global tile_index
  ship_index = (ship_coord[1]*map_size)+ship_coord[0]
  tile_index = (tile_coord[1]*map_size)+tile_coord[0]
 
@@ -119,6 +121,8 @@ def gen_map(ships):
 
 #function select ship
 def select_ship(tile_map):
+ global selected_ship
+ global ship_coord
  x, y = map(int, input("Select ship (X Y): ").split())
  if tile_map[(y*map_size)+x].occupant != "none":
   selected_ship = tile_map[(y*map_size)+x].occupant
@@ -128,6 +132,8 @@ def select_ship(tile_map):
 
 #function select tile
 def select_tile(tile_map):
+ global selected_tile
+ global tile_coord
  x, y = map(int, input("Select tile (X Y): ").split())
  selected_tile = tile_map[(y*map_size)+x]
  tile_coord = [x, y]
@@ -136,6 +142,8 @@ def select_tile(tile_map):
 
 #function move ship
 def move_ship(tile_map):
+ global selected_ship
+ global ship_coord
  tile_map[(tile_coord[1]*map_size)+tile_coord[0]].occupant = selected_ship
  print(f"Moved ship to {tile_coord[0]} {tile_coord[1]}.")
  tile_map[(ship_coord[1]*map_size)+ship_coord[0]].occupant = "none"
@@ -147,6 +155,7 @@ def move_ship(tile_map):
 
 #function attack ship or planet
 def attack_ship(tile_map):
+ global selected_ship
  tile_map[(tile_coord[1]*map_size)+tile_coord[0]].occupant.hp -= selected_ship.damage
  selected_ship.has_attacked = 1
  print(f"Attacking {tile_map[(tile_coord[1]*map_size)+tile_coord[0]].occupant.name} for {selected_ship.damage}.")
